@@ -1,0 +1,5 @@
+node_modules/
+examples/node_modules/
+components/node_modules/
+components/es/
+components/lib/

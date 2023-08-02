@@ -1,0 +1,21 @@
+{
+  "name": "hrc-ui",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "module":"es/index.js",
+  "scripts": {
+    "build": "vite build"
+  },
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [
+    "kitty-ui",
+    "vue3组件库"
+  ],
+  "author": "黄日晨",
+  "license": "MIT",
+  "description": "",
+  "typings": "lib/index.d.ts"
+}
