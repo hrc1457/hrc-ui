@@ -2,9 +2,9 @@
   "name": "hrc-ui",
   "version": "1.0.0",
   "main": "lib/index.js",
-  "module":"es/index.js",
+  "module": "es/index.js",
   "scripts": {
-    "build": "vite build"
+    "build": "vite build & esno build/buildImage.ts"
   },
   "files": [
     "es",
@@ -17,5 +17,11 @@
   "author": "黄日晨",
   "license": "MIT",
   "description": "",
-  "typings": "lib/index.d.ts"
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "fast-glob": "^3.3.1"
+  },
+  "devDependencies": {
+    "xml2js": "^0.6.2"
+  }
 }
