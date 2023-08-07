@@ -3,10 +3,10 @@
     <div class="h-button-container">
       <div v-if="loading" class="h-button-flex">
         <h-icon type="loading-one" />
-        <div>加载中</div>
+        <div v-if="type !== 'icon'">加载中</div>
       </div>
       <div v-else class="h-button-flex">
-        <h-icon v-if="icon !== ''" :type="icon" />
+        <h-icon v-if="icon.length !== 0" :type="icon" style="margin-right: 3px" />
         <slot></slot>
       </div>
     </div>
@@ -22,12 +22,12 @@ const props = defineProps({
   type: {
     type: String,
     default: 'default',
-    validator: (value) => ['default', 'primary', 'success', 'warning', 'danger'].includes(value)
+    validator: (value) => ['default', 'primary', 'success', 'warning', 'danger', 'icon'].includes(value)
   },
   size: {
     type: String,
     default: 'normal',
-    validator: (value) => ['normal', 'medium', 'small', 'mini'].includes(value) // 修改 medium 的拼写错误
+    validator: (value) => ['normal', 'medium', 'small', 'mini'].includes(value)
   },
   icon: {
     type: String,
@@ -132,6 +132,13 @@ const isDisabled = ref(props.disabled || props.loading);
 .h-button-danger {
   /* 危险样式 */
   .h-button-style(@danger-color);
+}
+
+.h-button-icon {
+  padding: 0;
+  margin: 0;
+  border-width: 0;
+  background-color: transparent;
 }
 
 .h-button-normal {

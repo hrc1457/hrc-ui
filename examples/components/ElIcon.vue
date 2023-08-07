@@ -1,46 +1,36 @@
 <template>
-  <i id="h-icon" :styel="`--offsetX: ${width}`">&nbsp;&nbsp;&nbsp;&nbsp;</i>
+  <i ref="hIconComponent" id="h-icon">&nbsp;&nbsp;&nbsp;&nbsp;</i>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, onMounted, ref } from 'vue';
+import { defineProps, onMounted, ref, nextTick } from 'vue';
 const props = defineProps({
     type: {
         type: String,
         default: 'cat',
+    },
+    color: {
+        type: String,
+        default: 'white'
     }
 })
 
-const width = ref("")
 
-
+const hIconComponent = ref<HTMLElement | null>(null);
 onMounted(() => {
-    const icon = document.querySelector('#h-icon');
-    width.value = icon?.clientWidth + 'px';
-    console.log("width:" , width.value)
-})
+  nextTick(() => {
+    if (hIconComponent.value) {
+      hIconComponent.value.style.setProperty('--offsetX', hIconComponent.value.clientWidth + 'px');
+      hIconComponent.value.style.setProperty('--color', props.color)
+    }
+  });
+});
 </script>
 
 <style lang="less" scoped>
-// [class^='h-icon--'] {
-//     display:inline-block;
-//     position: relative;
-//     font-size: 12px;
-//     zoom: 1;
-//     &::after {
-//         content: '12';
-//         position: absolute;
-//         top: 0;
-//         bottom: 0;
-//         left: 0;
-//         right: 0;
-//         background-image: url('../loading-one.svg');
-//         background-size: cover;
-//     }
-// }
 #h-icon {
-    --offsetX: 18.94px;
-    --color: red;
+    --offsetX: 0;
+    --color: white;
     display: inline-block;
     background-image: url('../loading-one.svg');
     background-size: contain;
@@ -59,24 +49,6 @@ onMounted(() => {
         right: 0;
         background: inherit;
         filter: drop-shadow(var(--offsetX) 0 0 var(--color));
-    }
-}
-
-#icon{
-    --offsetX: 180px;
-    --color: white;
-    display: inline-block;
-    width: 180px;
-    height: 180px;
-    background: url('../loading-one.svg') no-repeat center  cover;
-    overflow: hidden;
-    &:after {
-        content: '';
-        display: block;
-        height: 100%;
-        background: inherit;
-        transform: translateX(-100%);
-        filter: drop-shadow(var(--offsetX) 0 0 white);
     }
 }
 </style>

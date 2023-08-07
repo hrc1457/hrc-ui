@@ -1,15 +1,19 @@
 <template>
   <div class="flex">
-    <PermissionButton :hasPermission="true" :popConfirm="{title: '这是最后一条数据哦，确认删除吗？'}" tip="启用">
+    <PermissionButton :hasPermission="true" :popConfirm="{title: '这是最后一条数据哦，确认删除吗？'}" tip="启用" type="icon" confirmIcon="bird">
       <h-icon />
     </PermissionButton>
-    <h-button icon="cat" type="primary">123</h-button>
+
+    <div style="margin-bottom: 30px;"></div>
+
+    <PermissionButton icon="cat" :hasPermission="true" :popConfirm="{title: '这是最后一条数据哦，确认删除吗？'}" tip="启用" type="primary">
+      确认
+    </PermissionButton>
+
+    <div style="margin-bottom: 30px;"></div>
+
+    <button><ElIcon/></button>
     <ElIcon />
-    <br/>
-    <button style="font-size: 30px;"><ElIcon />1234</button>
-    <PermissionButton :hasPermission="true" :popConfirm="{title: '这是最后一条数据哦，确认删除吗？'}" tip="启用">
-      <h-icon />
-    </PermissionButton>
   </div>
 </template>
 

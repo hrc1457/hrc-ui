@@ -2,7 +2,7 @@
     <div class="permission-container">
       <div v-show="showConfirm" class="permission-confirmDiv">
         <div class="permission-confirmDiv-titleDiv">
-          <h-icon style="margin-right: 5px;" :type="icon" />
+          <h-icon style="margin-right: 5px;" :type="confirmIcon" />
           {{ popConfirm.title }}
         </div>
         <div class="permission-confirmDiv-buttoneDiv">
@@ -10,10 +10,9 @@
           <button @click="popConfirm.onConfirm" class="permission-confirmDiv-confirmButton">确认</button>
         </div>
       </div>
-      <button class="permission-button" @click="onClick" :disabled="isDisabled">
-        <h-icon v-if="loading" type="loading-one" />
-        <slot v-else></slot>
-      </button>
+      <h-button class="permission-button" @click="onClick" :type="type" :icon="icon" :size="size" :loading="loading" :disabled="disabled">
+        <slot></slot>
+      </h-button>
       <div v-if="tip !== ''" class="permission-tipDiv">
           {{ tip }}
       </div>
@@ -22,7 +21,7 @@
   
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
-import { HIcon } from 'hrc-ui';
+import { HIcon, HButton } from 'hrc-ui';
 const props = defineProps({
   hasPermission: {
       type: Boolean,
@@ -39,23 +38,37 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  type: {
+    type: String,
+    default: 'default',
+    validator: (value) => ['default', 'primary', 'success', 'warning', 'danger', 'icon'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'normal',
+    validator: (value) => ['normal', 'medium', 'small', 'mini'].includes(value)
+  },
   icon: {
     type: String,
-    default: 'cat'
+    default: ''
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   },
   loading: {
     type: Boolean,
     default: false
   },
-  disabled: {
-    type: Boolean,
-    default: false
+  confirmIcon: {
+    type: String,
+    default: 'cat'
   }
 })
 
 const showConfirm = ref(false);
 
-const isDisabled = ref<boolean>(props.disabled || props.loading);
+// const isDisabled = ref<boolean>(props.disabled || props.loading);
 
 /**
  * 改变二次确认弹出框的状态
@@ -78,10 +91,10 @@ const onClick = () => {
   position: relative;
   font-size: 14px;
   .permission-button {
-    padding: 0;
-    margin: 0;
-    border-width: 0;
-    background-color: transparent;
+    // padding: 0;
+    // margin: 0;
+    // border-width: 0;
+    // background-color: transparent;
     &:hover + .permission-tipDiv {
       display: block;
     }
