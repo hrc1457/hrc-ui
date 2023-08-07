@@ -10,11 +10,11 @@
           <button @click="popConfirm.onConfirm" class="permission-confirmDiv-confirmButton">确认</button>
         </div>
       </div>
-      <h-button class="permission-button" @click="onClick" :type="type" :icon="icon" :size="size" :loading="loading" :disabled="disabled">
+      <h-button class="permission-button" @click="changeShowConfirmState" :type="type" :icon="icon" :size="size" :loading="loading" :disabled="isDisabled">
         <slot></slot>
       </h-button>
       <div v-if="tip !== ''" class="permission-tipDiv">
-          {{ tip }}
+          {{ tipTitle }}
       </div>
     </div>
 </template>
@@ -68,7 +68,9 @@ const props = defineProps({
 
 const showConfirm = ref(false);
 
-// const isDisabled = ref<boolean>(props.disabled || props.loading);
+const isDisabled = ref<boolean>(props.disabled || !props.hasPermission);
+
+const tipTitle = props.hasPermission ? props.tip : '没有相关权限，请联系管理员!';
 
 /**
  * 改变二次确认弹出框的状态
@@ -78,11 +80,7 @@ const changeShowConfirmState = () => {
 }
 
 const onClick = () => {
-  if (!props.hasPermission) {
-    alert("没有相关权限，请联系管理员！");
-  } else {
     changeShowConfirmState();
-  }
 }
 </script>
 
@@ -145,16 +143,16 @@ const onClick = () => {
     text-shadow: 0 0 5px #000;
     text-align: center;
     display: none;
-  }
-  .permission-tipDiv::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 100%;
-    border-width: 5px;
-    transform: translateX(-50%);
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      border-width: 5px;
+      transform: translateX(-50%);
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+    }
   }
 }
 
